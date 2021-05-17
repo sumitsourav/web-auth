@@ -14,14 +14,16 @@ const server = http.createServer((req, res) => {
       res.write(urlParse.query.name);
       res.end();
     }
-    if (urlParse.pathname === "/me/hello" && req.method == "GET") {
-        res.write("hello " + urlParse.query.name);
-        res.end();
-    }
     if (/^\/me\/[a-zA-Z]+$/.test(urlParse.pathname) && req.method == "GET") {
       pathname = urlParse.pathname.split("/");
-      res.write(pathname[2]);
-      res.end();
+      if (Object.keys(urlParse.query).length === 0) {
+          res.write(pathname[2]);
+          res.end();
+      }
+      else {
+          res.write("hello " + urlParse.query.name);
+          res.end();
+      }
     }
 });
 
