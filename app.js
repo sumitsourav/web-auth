@@ -25,6 +25,11 @@ const server = http.createServer((req, res) => {
           res.end();
       }
     }
+    if (/^\/me\/hello\/[a-zA-Z]+$/.test(urlParse.pathname) && req.method == "GET") {
+        pathname = urlParse.pathname.split("/");
+        res.write(pathname[3]);
+        res.end();
+    }
 });
 
 server.listen(7050);
